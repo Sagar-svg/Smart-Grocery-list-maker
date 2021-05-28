@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block content %}
+    
+        <div class="content-section">
+          <div class="container">
+
+            <div >
+              <a class="mr-2"><span>Made by: </span>{{ list.owner.username }}</a>
+              <small class="text-muted mr-1"><span>Dated: </span>{{ list.date_made.strftime('%Y-%m-%d') }}</small>
+            </div>
+            <h2>{{ list.title }}</h2>
+            <div class="content-section">
+            <ul>
+            {% for gr in grc %}
+            <li>              
+              <span>{{ gr.name }} {{gr.quantity}} {{gr.measure}}</span>
+            </li>
+            {% endfor %}
+            </ul>
+          </div>
+          <div>
+               <a href="#">Update</a>
+               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteModal">
+                  Delete
+                </button>
+          </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Delete List?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <form action = "{{url_for('delete', list_id = list.id)}}", method = "POST">
+                  <input type="submit" class="btn btn-danger" name="Delete"/>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+    
+{% endblock content %}
