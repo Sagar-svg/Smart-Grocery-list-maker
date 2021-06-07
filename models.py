@@ -12,7 +12,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(120), unique=True, nullable=False)
     image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
     password = db.Column(db.String(60), nullable=False)
-    grocery_list = db.relationship('Grocerylist', backref='owner', lazy=True)
+    grocery_list = db.relationship('Grocerylist', backref='owner', cascade = "all,delete", lazy=True)
 
     def __repr__(self):
         return f"User('{self.username}', '{self.email}', '{self.image_file}')"
